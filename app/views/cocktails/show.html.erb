@@ -1,5 +1,15 @@
-<h1><%= @cocktail.name %></h1>
-<p><% @cocktail.doses.each do |dose| %>/p>
-  <p><%= dose.description %>/p>
-  <p><%= dose.ingredient %></p>
+
+  <% if @cocktail.photo.present? %>
+    <%= cl_image_tag cocktail.photo.key, height: 300, width: 400, crop: :fill %>
+  <% else %>
+    <%= image_tag("drinks.jpg")  %>
   <% end %>
+  <h1><%= @cocktail.name %></h1>
+  <h2> Ingredients</h2>
+  <p><% @cocktail.doses.each do |dose| %>/p>
+    <p><%= "#{dose.ingredient} - #{dose.description}" %>/p>
+    <%= link_to "delete", dose_path(@dose), method: :delete, data: { confirm: "Are you sure?" } %>
+  <% end %>
+
+<p><%= link_to "Add an ingredient", new_cocktail_dose_path(@cocktail)  %></p>
+

@@ -1,13 +1,19 @@
+
 <p class="btn btn-success"><%= link_to "Add cocktail", new_cocktail_path%></p>
-<%= cl_image_tag("znwfkfgehsoqomo4wzgk",
-      width: 400, height: 300, crop: :fill) %>
+
+
+
 <h1>Drinks</h1>
 
-
-<% @cocktails.each do |cocktail| %>
-
-  <p><%= link_to cocktail.name, cocktail_path(cocktail) %></p>
-
-  
-<% end %>
-
+<div class="card">
+  <% @cocktails.each do |cocktail| %>
+    <% if cocktail.photo.present? %>
+      <p class="card-img-top"><%= cl_image_tag cocktail.photo.key, height: 300, width: 400, crop: :fill %></p>
+    <% else %>
+      <p class="card-img-top"><%= image_tag("drinks.jpg")  %></p>
+    <% end %>
+  <div class="card-body">
+    <p><%= link_to cocktail.name, cocktail_path(cocktail) %></p>
+  <% end %>
+  </div>
+</div>
